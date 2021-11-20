@@ -2,7 +2,7 @@ package com.brandon.animalapi.models;
 
 import javax.validation.constraints.*;
 
-public class Animal {
+public class Animal implements IDataModel {
 
     @Size(max = 50)
     private String name;
