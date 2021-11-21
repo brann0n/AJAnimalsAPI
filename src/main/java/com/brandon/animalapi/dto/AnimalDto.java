@@ -1,21 +1,33 @@
-package com.brandon.animalapi.models;
+package com.brandon.animalapi.dto;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
-public class Animal implements IDataModel {
+public class AnimalDto {
 
+    @Positive
+    private int index;
+
+    @Size(max = 50)
     private String name;
+
+    @Size(max = 20)
     private String type;
+
+    @PositiveOrZero
     private int age;
 
-    public Animal(String name, String type, int age) {
-        this.name = name;
-        this.type = type;
-        this.age = age;
+    public AnimalDto(){
+
     }
 
-    public Animal(){
+    public int getIndex() {
+        return index;
+    }
 
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getName() {

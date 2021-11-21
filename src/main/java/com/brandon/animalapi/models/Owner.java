@@ -1,5 +1,7 @@
 package com.brandon.animalapi.models;
 
+import java.util.List;
+
 public class Owner implements IDataModel {
 
     private String name;

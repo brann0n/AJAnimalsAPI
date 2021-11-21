@@ -6,13 +6,11 @@ import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Component
 public class StorageController {
-    private static Map<String, HashMap<Integer, IDataModel>> map = new HashMap<>();
+    private static final Map<String, HashMap<Integer, IDataModel>> map = new HashMap<>();
     public static final String ANIMAL_KEY = "Animals";
     public static final String OWNER_KEY = "Owners";
 
@@ -20,7 +18,7 @@ public class StorageController {
         map.put(ANIMAL_KEY, new HashMap<Integer, IDataModel>());
         map.get(ANIMAL_KEY).put(1, new Animal("Fluffy", "Dog", 4));
         map.get(ANIMAL_KEY).put(2, new Animal("Boomer", "Dog", 2));
-        map.get(ANIMAL_KEY).put(3, new Animal("Mr. Biggle", "Cat", 7));
+        map.get(ANIMAL_KEY).put(3, new Animal("Mr. Biggles", "Cat", 7));
 
         //set owners in memory
         map.put(OWNER_KEY, new HashMap<Integer, IDataModel>());
