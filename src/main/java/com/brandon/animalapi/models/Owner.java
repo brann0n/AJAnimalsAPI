@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Owner implements IDataModel {
 
+    private int id;
     private String name;
     private String address;
     private boolean hasKids;
@@ -18,6 +19,14 @@ public class Owner implements IDataModel {
 
     public Owner() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

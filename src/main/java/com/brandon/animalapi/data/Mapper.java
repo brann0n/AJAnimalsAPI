@@ -3,11 +3,8 @@ package com.brandon.animalapi.data;
 import com.brandon.animalapi.dto.AnimalDto;
 import com.brandon.animalapi.dto.OwnerDto;
 import com.brandon.animalapi.models.Animal;
-import com.brandon.animalapi.models.IDataModel;
 import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class Mapper {
@@ -16,34 +13,32 @@ public class Mapper {
 
     }
 
-    public AnimalDto toAnimalDto(Animal animal, int index) {
+    public AnimalDto toAnimalDto(Animal animal) {
         AnimalDto returnObject = new AnimalDto();
         returnObject.setAge(animal.getAge());
-        returnObject.setIndex(index);
+        returnObject.setId(animal.getId());
         returnObject.setName(animal.getName());
         returnObject.setType(animal.getType());
-        return returnObject;
-    }
-
-    public AnimalDto toAnimalDto(Map.Entry<Integer, IDataModel> animal) {
-        Animal obj = (Animal) animal.getValue();
-        AnimalDto returnObject = new AnimalDto();
-        returnObject.setAge(obj.getAge());
-        returnObject.setIndex(animal.getKey());
-        returnObject.setName(obj.getName());
-        returnObject.setType(obj.getType());
+        returnObject.setOwnerId(animal.getOwnerId());
         return returnObject;
     }
 
     public Animal toAnimal(AnimalDto animal) {
-        return new Animal();
+        return new Animal(animal.getName(), animal.getType(), animal.getAge(), animal.getOwnerId());
     }
 
     public OwnerDto toOwnerDto(Owner owner){
-        return new OwnerDto();
+        OwnerDto returnObject = new OwnerDto();
+        returnObject.setName(owner.getName());
+        returnObject.setAddress(owner.getAddress());
+        returnObject.setFamilySize(owner.getFamilySize());
+        returnObject.setHasKids(owner.isHasKids());
+        returnObject.setId(owner.getId());
+
+        return returnObject;
     }
 
     public Owner toOwner(OwnerDto owner){
-        return new Owner();
+        return new Owner(owner.getName(), owner.getAddress(), owner.isHasKids(), owner.getFamilySize());
     }
 }

@@ -1,33 +1,35 @@
 package com.brandon.animalapi.dto;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class AnimalDto {
-
-    @Positive
-    private int index;
+    private int id;
 
     @Size(max = 50)
+    @NotBlank
     private String name;
 
     @Size(max = 20)
+    @NotBlank
     private String type;
 
     @PositiveOrZero
     private int age;
 
+    @Positive
+    @NotNull
+    private int ownerId;
+
     public AnimalDto(){
 
     }
 
-    public int getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,5 +54,13 @@ public class AnimalDto {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

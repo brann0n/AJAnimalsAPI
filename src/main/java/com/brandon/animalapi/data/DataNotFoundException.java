@@ -2,27 +2,27 @@ package com.brandon.animalapi.data;
 
 public class DataNotFoundException extends RuntimeException {
 
-    private String key;
+    private String repository;
     private int index;
 
-    public DataNotFoundException(String key, int index) {
+    public DataNotFoundException(String repository, int index) {
         super();
-        this.key = key;
+        this.repository = repository;
         this.index = index;
     }
 
-    public DataNotFoundException(String key) {
+    public DataNotFoundException(String repository) {
         super();
-        this.key = key;
+        this.repository = repository;
         this.index = -1;
     }
 
-    public String getKey() {
-        return key;
+    public String getRepository() {
+        return repository;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setRepository(String repository) {
+        this.repository = repository;
     }
 
     public int getIndex() {

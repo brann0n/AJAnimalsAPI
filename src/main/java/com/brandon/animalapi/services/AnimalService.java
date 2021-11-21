@@ -1,26 +1,50 @@
 package com.brandon.animalapi.services;
 
-import com.brandon.animalapi.data.StorageController;
+import com.brandon.animalapi.data.AnimalRepository;
+import com.brandon.animalapi.data.Mapper;
+import com.brandon.animalapi.data.OwnerRepository;
+import com.brandon.animalapi.dto.AnimalDto;
 import com.brandon.animalapi.models.Animal;
-import com.brandon.animalapi.models.IDataModel;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnimalService {
-    private final StorageController data;
+    private final AnimalRepository data;
+    private final Mapper mapper;
+    private final OwnerRepository ownerRepository;
 
-    public AnimalService(StorageController data){
+    public AnimalService(AnimalRepository data, Mapper mapper, OwnerRepository ownerRepository) {
         this.data = data;
+        this.mapper = mapper;
+        this.ownerRepository = ownerRepository;
     }
 
-    public HashMap<Integer, IDataModel> getAnimals(){
-        return data.getDataTable(StorageController.ANIMAL_KEY);
+    public List<AnimalDto> getAnimals() {
+        return data.getAnimals().stream().map(mapper::toAnimalDto).collect(Collectors.toList());
     }
 
-    public Animal getAnimal(int index){
-        return (Animal) data.getDataRecord(StorageController.ANIMAL_KEY, index);
+    public AnimalDto getAnimal(int index) {
+        return mapper.toAnimalDto(data.getAnimal(index));
+    }
+
+    public int createAnimal(AnimalDto animal) {
+        if(ownerRepository.getOwner(animal.getOwnerId()) != null){
+            return data.createAnimal(mapper.toAnimal(animal));
+        }
+
+        return -1;
+    }
+
+    public void updateAnimal(AnimalDto animal, int id) {
+        Animal cAnimal = mapper.toAnimal(animal);
+        cAnimal.setId(id);
+        data.updateAnimal(cAnimal);
+    }
+
+    public void deleteAnimal(int id) {
+        data.deleteAnimal(id);
     }
 }

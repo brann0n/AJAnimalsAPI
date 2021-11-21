@@ -1,56 +1,55 @@
 package com.brandon.animalapi.controllers;
 
-import com.brandon.animalapi.data.Mapper;
 import com.brandon.animalapi.dto.AnimalDto;
-import com.brandon.animalapi.models.IDataModel;
 import com.brandon.animalapi.services.AnimalService;
-import org.springframework.http.HttpStatus;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("animals")
 public class AnimalController {
 
-    private final AnimalService animalService;
-    private final Mapper mapper;
+    private final AnimalService service;
 
-    public AnimalController(AnimalService animalService, Mapper mapper) {
-        this.animalService = animalService;
-        this.mapper = mapper;
+    public AnimalController(AnimalService animalService) {
+        this.service = animalService;
     }
 
     @GetMapping
-    public @ResponseBody
-    ResponseEntity<List<AnimalDto>> get() {
-        return ResponseEntity.ok(animalService.getAnimals()
-                .entrySet()
-                .stream()
-                .map(mapper::toAnimalDto)
-                .collect(Collectors.toList()));
+    @ResponseBody
+    public ResponseEntity<List<AnimalDto>> get() {
+        return ResponseEntity.ok(service.getAnimals());
     }
 
     @GetMapping("/{animalId}")
-    public @ResponseBody ResponseEntity<AnimalDto> get(@PathVariable(value="animalId") final Integer animalId) {
-        return ResponseEntity.ok(mapper.toAnimalDto(animalService.getAnimal(animalId), animalId));
+    @ResponseBody
+    public ResponseEntity<AnimalDto> get(@PathVariable("animalId") final Integer animalId) {
+        return ResponseEntity.ok(service.getAnimal(animalId));
     }
 
-    @PostMapping
-    public @ResponseBody ResponseEntity<String> post() {
-        return new ResponseEntity<>("POST Response", HttpStatus.OK);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> post(@Valid @RequestBody AnimalDto animalDto) {
+        int createdObject = service.createAnimal(animalDto);
+        return ResponseEntity.created(URI.create(String.format("/animals/%d", createdObject))).build();
     }
 
-    @PutMapping
-    public @ResponseBody ResponseEntity<String> put() {
-        return new ResponseEntity<String>("PUT Response", HttpStatus.OK);
+    @PutMapping("/{animalId}")
+    @ResponseBody
+    public ResponseEntity<Void> put(@PathVariable("animalId") final Integer animalId, @Valid @RequestBody AnimalDto animalDto) {
+        service.updateAnimal(animalDto, animalId);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping()
-    public @ResponseBody ResponseEntity<String> delete() {
-        return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
+    @DeleteMapping("/{animalId}")
+    @ResponseBody
+    public ResponseEntity<String> delete(@PathVariable("animalId") final Integer animalId) {
+        service.deleteAnimal(animalId);
+        return ResponseEntity.noContent().build();
     }
 }

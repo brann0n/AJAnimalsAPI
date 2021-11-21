@@ -1,17 +1,19 @@
 package com.brandon.animalapi.models;
 
-import javax.validation.constraints.*;
 
 public class Animal implements IDataModel {
 
+    private int id;
     private String name;
     private String type;
     private int age;
+    private int ownerId;
 
-    public Animal(String name, String type, int age) {
+    public Animal(String name, String type, int age, int ownerId) {
         this.name = name;
         this.type = type;
         this.age = age;
+        this.ownerId = ownerId;
     }
 
     public Animal(){
@@ -40,5 +42,21 @@ public class Animal implements IDataModel {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }
