@@ -31,11 +31,10 @@ public class AnimalService {
     }
 
     public int createAnimal(AnimalDto animal) {
-        if (ownerRepository.getOwner(animal.getOwnerId()) != null) {
-            return data.createAnimal(mapper.toAnimal(animal));
-        }
-
-        return -1;
+        // try to get the owner, if owner cannot be found an exception is thrown. This is handled through
+        // the global controller exception handler.
+        ownerRepository.getOwner(animal.getOwnerId());
+        return data.createAnimal(mapper.toAnimal(animal));
     }
 
     public void updateAnimal(AnimalDto animal, int id) {
