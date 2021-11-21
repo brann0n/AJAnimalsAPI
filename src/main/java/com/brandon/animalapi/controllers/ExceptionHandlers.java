@@ -24,7 +24,7 @@ public class ExceptionHandlers {
         return new ErrorResponse("acceptable MIME type:" + MediaType.APPLICATION_JSON_VALUE);
     }
 
-    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
     public ErrorResponse handleAnyRuntimeException(RuntimeException exception) {
         return new ErrorResponse("Something unexpected went wrong: " + exception.getMessage());
