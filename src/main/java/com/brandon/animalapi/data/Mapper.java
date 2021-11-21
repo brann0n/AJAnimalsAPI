@@ -27,7 +27,7 @@ public class Mapper {
         return new Animal(animal.getName(), animal.getType(), animal.getAge(), animal.getOwnerId());
     }
 
-    public OwnerDto toOwnerDto(Owner owner){
+    public OwnerDto toOwnerDto(Owner owner) {
         OwnerDto returnObject = new OwnerDto();
         returnObject.setName(owner.getName());
         returnObject.setAddress(owner.getAddress());
@@ -38,7 +38,7 @@ public class Mapper {
         return returnObject;
     }
 
-    public Owner toOwner(OwnerDto owner){
+    public Owner toOwner(OwnerDto owner) {
         return new Owner(owner.getName(), owner.getAddress(), owner.isHasKids(), owner.getFamilySize());
     }
 }

@@ -20,7 +20,7 @@ public class AnimalDto {
     @NotNull
     private int ownerId;
 
-    public AnimalDto(){
+    public AnimalDto() {
 
     }
 

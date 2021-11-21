@@ -15,9 +15,10 @@ public class ExceptionHandlers {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(DataNotFoundException.class)
-    public ErrorResponse handleDataException(DataNotFoundException exception, HttpServletRequest request){
+    public ErrorResponse handleDataException(DataNotFoundException exception, HttpServletRequest request) {
         return new ErrorResponse(String.format("Attempting to read data from %s with id %d failed", exception.getRepository(), exception.getIndex()));
     }
+
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
     public ErrorResponse handleHttpMediaTypeNotAcceptableException() {
@@ -30,9 +31,10 @@ public class ExceptionHandlers {
         return new ErrorResponse("Something unexpected went wrong: " + exception.getMessage());
     }
 
-    public class ErrorResponse{
+    public class ErrorResponse {
         private String error;
-        public ErrorResponse(String message){
+
+        public ErrorResponse(String message) {
             this.error = message;
         }
 

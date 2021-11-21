@@ -16,7 +16,7 @@ public class Animal implements IDataModel {
         this.ownerId = ownerId;
     }
 
-    public Animal(){
+    public Animal() {
 
     }
 

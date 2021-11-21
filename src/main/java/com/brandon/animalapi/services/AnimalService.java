@@ -31,7 +31,7 @@ public class AnimalService {
     }
 
     public int createAnimal(AnimalDto animal) {
-        if(ownerRepository.getOwner(animal.getOwnerId()) != null){
+        if (ownerRepository.getOwner(animal.getOwnerId()) != null) {
             return data.createAnimal(mapper.toAnimal(animal));
         }
 

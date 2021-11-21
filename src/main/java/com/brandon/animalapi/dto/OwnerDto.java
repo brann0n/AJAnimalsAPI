@@ -17,7 +17,7 @@ public class OwnerDto {
     @Positive
     private int familySize;
 
-    public OwnerDto(){
+    public OwnerDto() {
 
     }
 
