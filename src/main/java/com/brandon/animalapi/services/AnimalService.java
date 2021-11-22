@@ -33,6 +33,9 @@ public class AnimalService {
          * - owner: [id]
          */
         String[] searchParams = search.split(":");
+        if(searchParams.length == 1)
+            return getAnimalsByName(searchParams[0]);
+
         switch(searchParams[0]){
             case "type":
                 return getAnimalsByType(searchParams[1]);
