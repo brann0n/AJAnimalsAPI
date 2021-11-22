@@ -23,8 +23,8 @@ public class AnimalController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<AnimalDto>> get() {
-        return ResponseEntity.ok(service.getAnimals());
+    public ResponseEntity<List<AnimalDto>> get(@RequestParam(required = false) String search) {
+        return ResponseEntity.ok(service.getAnimals(search));
     }
 
     @GetMapping("/{animalId}")

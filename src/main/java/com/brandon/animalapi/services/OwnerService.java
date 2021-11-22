@@ -13,27 +13,25 @@ import java.util.stream.Collectors;
 @Service
 public class OwnerService {
     private final OwnerRepository data;
-    private final Mapper mapper;
 
-    public OwnerService(OwnerRepository data, Mapper mapper) {
+    public OwnerService(OwnerRepository data) {
         this.data = data;
-        this.mapper = mapper;
     }
 
     public List<OwnerDto> getOwners() {
-        return data.getOwners().stream().map(mapper::toOwnerDto).collect(Collectors.toList());
+        return data.getOwners().stream().map(Mapper::toOwnerDto).collect(Collectors.toList());
     }
 
     public OwnerDto getOwner(int id) {
-        return mapper.toOwnerDto(data.getOwner(id));
+        return Mapper.toOwnerDto(data.getOwner(id));
     }
 
     public int createOwner(OwnerDto owner) {
-        return data.createOwner(mapper.toOwner(owner));
+        return data.createOwner(Mapper.toOwner(owner));
     }
 
     public void updateOwner(OwnerDto owner, int id) {
-        Owner cOwner = mapper.toOwner(owner);
+        Owner cOwner = Mapper.toOwner(owner);
         cOwner.setId(id);
         data.updateOwner(cOwner);
     }

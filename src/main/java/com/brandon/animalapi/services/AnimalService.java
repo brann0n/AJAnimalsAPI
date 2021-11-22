@@ -13,37 +13,90 @@ import java.util.stream.Collectors;
 @Service
 public class AnimalService {
     private final AnimalRepository data;
-    private final Mapper mapper;
     private final OwnerRepository ownerRepository;
 
-    public AnimalService(AnimalRepository data, Mapper mapper, OwnerRepository ownerRepository) {
+    public AnimalService(AnimalRepository data, OwnerRepository ownerRepository) {
         this.data = data;
-        this.mapper = mapper;
         this.ownerRepository = ownerRepository;
     }
 
-    public List<AnimalDto> getAnimals() {
-        return data.getAnimals().stream().map(mapper::toAnimalDto).collect(Collectors.toList());
+    public List<AnimalDto> getAnimals(String search) {
+        if(search == null || search.isEmpty())
+            return data.getAnimals().stream().map(Mapper::toAnimalDto).collect(Collectors.toList());
+
+        //if a search param is provided: try to search for it
+        /*
+         * Search options:
+         * - name:[text]
+         * - type:[text]
+         * - age:[number]
+         * - owner: [id]
+         */
+        String[] searchParams = search.split(":");
+        switch(searchParams[0]){
+            case "type":
+                return getAnimalsByType(searchParams[1]);
+            case "age":
+                return getAnimalsByAge(Integer.parseInt(searchParams[1]));
+            case "owner":
+                return getAnimalsByOwner(Integer.parseInt(searchParams[1]));
+            case "name":
+                return getAnimalsByName(searchParams[1]);
+            default:
+                return getAnimalsByName(searchParams[0]);
+        }
     }
 
     public AnimalDto getAnimal(int index) {
-        return mapper.toAnimalDto(data.getAnimal(index));
+        return Mapper.toAnimalDto(data.getAnimal(index));
     }
 
     public int createAnimal(AnimalDto animal) {
         // try to get the owner, if owner cannot be found an exception is thrown. This is handled through
         // the global controller exception handler.
         ownerRepository.getOwner(animal.getOwnerId());
-        return data.createAnimal(mapper.toAnimal(animal));
+        return data.createAnimal(Mapper.toAnimal(animal));
     }
 
     public void updateAnimal(AnimalDto animal, int id) {
-        Animal cAnimal = mapper.toAnimal(animal);
+        Animal cAnimal = Mapper.toAnimal(animal);
         cAnimal.setId(id);
         data.updateAnimal(cAnimal);
     }
 
     public void deleteAnimal(int id) {
         data.deleteAnimal(id);
+    }
+
+    private List<AnimalDto> getAnimalsByName(String name){
+        return data.getAnimals()
+                .stream()
+                .filter((index) -> index.getName().contains(name))
+                .map(Mapper::toAnimalDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<AnimalDto> getAnimalsByType(String type){
+        return data.getAnimals()
+                .stream()
+                .filter((index) -> index.getType().contains(type))
+                .map(Mapper::toAnimalDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<AnimalDto> getAnimalsByAge(int age){
+        return data.getAnimals()
+                .stream()
+                .filter((index) -> index.getAge() == age)
+                .map(Mapper::toAnimalDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<AnimalDto> getAnimalsByOwner(int id){
+        return data.getAnimals()
+                .stream()
+                .filter((index) -> index.getOwnerId() == id)
+                .map(Mapper::toAnimalDto)
+                .collect(Collectors.toList());
     }
 }
