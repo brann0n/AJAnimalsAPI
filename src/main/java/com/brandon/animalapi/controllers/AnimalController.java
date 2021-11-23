@@ -1,6 +1,7 @@
 package com.brandon.animalapi.controllers;
 
 import com.brandon.animalapi.dto.AnimalDto;
+import com.brandon.animalapi.dto.OwnerDto;
 import com.brandon.animalapi.services.AnimalService;
 
 import org.springframework.http.MediaType;
@@ -22,15 +23,18 @@ public class AnimalController {
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<List<AnimalDto>> get(@RequestParam(required = false) String search) {
         return ResponseEntity.ok(service.getAnimals(search));
     }
 
     @GetMapping("/{animalId}")
-    @ResponseBody
     public ResponseEntity<AnimalDto> get(@PathVariable("animalId") final Integer animalId) {
         return ResponseEntity.ok(service.getAnimal(animalId));
+    }
+
+    @GetMapping("/{animalId}/owner")
+    public ResponseEntity<OwnerDto> getAnimalOwner(@PathVariable("animalId") final Integer animalId) {
+        return ResponseEntity.ok(service.getAnimalOwner(animalId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,14 +44,12 @@ public class AnimalController {
     }
 
     @PutMapping("/{animalId}")
-    @ResponseBody
     public ResponseEntity<Void> put(@PathVariable("animalId") final Integer animalId, @Valid @RequestBody AnimalDto animalDto) {
         service.updateAnimal(animalDto, animalId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{animalId}")
-    @ResponseBody
     public ResponseEntity<String> delete(@PathVariable("animalId") final Integer animalId) {
         service.deleteAnimal(animalId);
         return ResponseEntity.noContent().build();

@@ -4,6 +4,7 @@ import com.brandon.animalapi.data.AnimalRepository;
 import com.brandon.animalapi.data.Mapper;
 import com.brandon.animalapi.data.OwnerRepository;
 import com.brandon.animalapi.dto.AnimalDto;
+import com.brandon.animalapi.dto.OwnerDto;
 import com.brandon.animalapi.models.Animal;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,10 @@ public class AnimalService {
         return Mapper.toAnimalDto(data.getAnimal(index));
     }
 
+    public OwnerDto getAnimalOwner(int animalId) {
+        return Mapper.toOwnerDto(ownerRepository.getOwner(data.getAnimal(animalId).getOwnerId()));
+    }
+
     public int createAnimal(AnimalDto animal) {
         // try to get the owner, if owner cannot be found an exception is thrown. This is handled through
         // the global controller exception handler.
@@ -74,7 +79,7 @@ public class AnimalService {
     private List<AnimalDto> getAnimalsByName(String name){
         return data.getAnimals()
                 .stream()
-                .filter((index) -> index.getName().contains(name))
+                .filter((index) -> index.getName().toLowerCase().contains(name.toLowerCase()))
                 .map(Mapper::toAnimalDto)
                 .collect(Collectors.toList());
     }

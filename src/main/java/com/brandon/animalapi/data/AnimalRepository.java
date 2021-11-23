@@ -50,7 +50,7 @@ public class AnimalRepository {
     /**
      * Updates a specific Animal in the underlying hashmap
      *
-     * @param animal
+     * @param animal id of the animal to update
      */
     public void updateAnimal(Animal animal) {
         if (!this.animals.containsKey(animal.getId())) throw new DataNotFoundException("Animals");
@@ -60,7 +60,7 @@ public class AnimalRepository {
     /**
      * Deletes an animal from the underlying hashmap
      *
-     * @param id
+     * @param id id of the animal to delete
      */
     public void deleteAnimal(int id) {
         if (!this.animals.containsKey(id)) throw new DataNotFoundException("Animals", id);
@@ -77,7 +77,7 @@ public class AnimalRepository {
     }
 
     /**
-     * Get an animal by the Id
+     * Get an animal by its id
      *
      * @param id animal Id
      * @return return the Animal Object

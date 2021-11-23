@@ -31,7 +31,7 @@ public class ExceptionHandlers {
         return new ErrorResponse("Something unexpected went wrong: " + exception.getMessage());
     }
 
-    public class ErrorResponse {
+    public static class ErrorResponse {
         private String error;
 
         public ErrorResponse(String message) {

@@ -1,5 +1,6 @@
 package com.brandon.animalapi.controllers;
 
+import com.brandon.animalapi.dto.AnimalDto;
 import com.brandon.animalapi.dto.OwnerDto;
 import com.brandon.animalapi.services.OwnerService;
 import org.springframework.http.MediaType;
@@ -21,15 +22,18 @@ public class OwnerController {
     }
 
     @GetMapping
-    public @ResponseBody
-    ResponseEntity<List<OwnerDto>> get() {
+    public ResponseEntity<List<OwnerDto>> get() {
         return ResponseEntity.ok(service.getOwners());
     }
 
     @GetMapping("/{ownerId}")
-    public @ResponseBody
-    ResponseEntity<OwnerDto> get(@PathVariable(value = "ownerId") final int ownerId) {
+    public ResponseEntity<OwnerDto> get(@PathVariable(value = "ownerId") final int ownerId) {
         return ResponseEntity.ok(service.getOwner(ownerId));
+    }
+
+    @GetMapping("/{ownerId}/animals")
+    public ResponseEntity<List<AnimalDto>> getOwnerAnimals(@PathVariable(value = "ownerId") final int ownerId) {
+        return ResponseEntity.ok(service.getOwnerAnimals(ownerId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
