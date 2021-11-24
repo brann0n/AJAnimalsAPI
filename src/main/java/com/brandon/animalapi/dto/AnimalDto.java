@@ -3,7 +3,7 @@ package com.brandon.animalapi.dto;
 import javax.validation.constraints.*;
 
 public class AnimalDto {
-    private int id;
+    private long id;
 
     @Size(max = 50)
     @NotBlank
@@ -18,17 +18,17 @@ public class AnimalDto {
 
     @Positive
     @NotNull
-    private int ownerId;
+    private long ownerId;
 
     public AnimalDto() {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -56,11 +56,11 @@ public class AnimalDto {
         this.age = age;
     }
 
-    public int getOwnerId() {
+    public long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(long ownerId) {
         this.ownerId = ownerId;
     }
 }

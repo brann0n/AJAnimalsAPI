@@ -39,7 +39,7 @@ public class AnimalController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> post(@Valid @RequestBody AnimalDto animalDto) {
-        int createdObject = service.createAnimal(animalDto);
+        long createdObject = service.createAnimal(animalDto);
         return ResponseEntity.created(URI.create(String.format("/animals/%d", createdObject))).build();
     }
 

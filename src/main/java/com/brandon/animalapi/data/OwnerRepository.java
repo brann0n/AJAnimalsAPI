@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -15,32 +16,8 @@ import java.util.List;
 @Component
 public class OwnerRepository {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "ANIMALS")
     private EntityManager entityManager;
-
-    /**
-     * Local object to store all animals in.
-     */
-    private final HashMap<Integer, Owner> owners;
-
-    /**
-     * private index to be kept unique over any table changes
-     */
-    private int autoIncrementIndex = 1;
-
-    public OwnerRepository() {
-        this.owners = new HashMap<>();
-
-        initRepository();
-    }
-
-    /**
-     * Function that adds a preset of objects to the database with the index kept intact
-     */
-    private void initRepository() {
-//        createOwner(new Owner("John Doe", "small street 3944b, BigCity", 2));
-//        createOwner(new Owner("Ben Al", "big street 24, SmallTown", 8));
-    }
 
     /**
      * Creates an owner in the underlying hashmap
@@ -48,11 +25,10 @@ public class OwnerRepository {
      * @param owner
      * @return
      */
-    public int createOwner(Owner owner) {
-        int createIndex = autoIncrementIndex++;
-        owner.setId(createIndex);
-        this.owners.put(createIndex, owner);
-        return createIndex;
+    @Transactional
+    public Long createOwner(Owner owner) {
+        entityManager.persist(owner);
+        return owner.getId();
     }
 
     /**
@@ -61,9 +37,12 @@ public class OwnerRepository {
      * @param owner
      * @return success
      */
+    @Transactional
     public void updateOwner(Owner owner) {
-        if (!this.owners.containsKey(owner.getId())) throw new DataNotFoundException("Owners");
-        owners.put(owner.getId(), owner);
+        Owner dbOwner = entityManager.find(Owner.class, owner.getId());
+        dbOwner.setAddress(owner.getAddress());
+        dbOwner.setName(owner.getName());
+        dbOwner.setFamiliySize(owner.getFamiliySize());
     }
 
     /**
@@ -72,9 +51,10 @@ public class OwnerRepository {
      * @param id
      * @return success
      */
-    public void removeOwner(int id) {
-        if (!this.owners.containsKey(id)) throw new DataNotFoundException("Owners", id);
-        owners.remove(id);
+    @Transactional
+    public void removeOwner(long id) {
+        Owner dbOwner = entityManager.find(Owner.class, id);
+        entityManager.remove(dbOwner);
     }
 
     /**
@@ -94,8 +74,7 @@ public class OwnerRepository {
      * @param id id of the owner to get
      * @return returns a {@code Owner}
      */
-    public Owner getOwner(int id) {
-        if (!this.owners.containsKey(id)) throw new DataNotFoundException("Owners", id);
-        return owners.get(id);
+    public Owner getOwner(Long id) {
+        return entityManager.find(Owner.class, id);
     }
 }

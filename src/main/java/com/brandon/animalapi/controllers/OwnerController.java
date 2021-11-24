@@ -27,7 +27,7 @@ public class OwnerController {
     }
 
     @GetMapping("/{ownerId}")
-    public ResponseEntity<OwnerDto> get(@PathVariable(value = "ownerId") final int ownerId) {
+    public ResponseEntity<OwnerDto> get(@PathVariable(value = "ownerId") final long ownerId) {
         return ResponseEntity.ok(service.getOwner(ownerId));
     }
 
@@ -38,13 +38,13 @@ public class OwnerController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> post(@Valid @RequestBody OwnerDto ownerDto) {
-        int createdObject = service.createOwner(ownerDto);
+        Long createdObject = service.createOwner(ownerDto);
         return ResponseEntity.created(URI.create(String.format("/owners/%d", createdObject))).build();
     }
 
     @PutMapping("/{ownerId}")
     @ResponseBody
-    public ResponseEntity<Void> put(@PathVariable("ownerId") final Integer ownerId, @Valid @RequestBody OwnerDto ownerDto) {
+    public ResponseEntity<Void> put(@PathVariable("ownerId") final Long ownerId, @Valid @RequestBody OwnerDto ownerDto) {
         service.updateOwner(ownerDto, ownerId);
         return ResponseEntity.ok().build();
     }

@@ -27,7 +27,7 @@ public class OwnerService {
         return data.getOwners().stream().map(Mapper::toOwnerDto).collect(Collectors.toList());
     }
 
-    public OwnerDto getOwner(int id) {
+    public OwnerDto getOwner(Long id) {
         return Mapper.toOwnerDto(data.getOwner(id));
     }
 
@@ -35,11 +35,11 @@ public class OwnerService {
         return animalRepository.getAnimals().stream().filter((animal) -> animal.getOwner().getId() == ownerId).map(Mapper::toAnimalDto).collect(Collectors.toList());
     }
 
-    public int createOwner(OwnerDto owner) {
+    public Long createOwner(OwnerDto owner) {
         return data.createOwner(Mapper.toOwner(owner));
     }
 
-    public void updateOwner(OwnerDto owner, int id) {
+    public void updateOwner(OwnerDto owner, Long id) {
         Owner cOwner = Mapper.toOwner(owner);
         cOwner.setId(id);
         data.updateOwner(cOwner);

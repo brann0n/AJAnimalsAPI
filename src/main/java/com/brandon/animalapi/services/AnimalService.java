@@ -6,6 +6,7 @@ import com.brandon.animalapi.data.OwnerRepository;
 import com.brandon.animalapi.dto.AnimalDto;
 import com.brandon.animalapi.dto.OwnerDto;
 import com.brandon.animalapi.models.Animal;
+import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,28 +52,30 @@ public class AnimalService {
         }
     }
 
-    public AnimalDto getAnimal(int index) {
+    public AnimalDto getAnimal(long index) {
         return Mapper.toAnimalDto(data.getAnimal(index));
     }
 
-    public OwnerDto getAnimalOwner(int animalId) {
+    public OwnerDto getAnimalOwner(long animalId) {
         return Mapper.toOwnerDto(data.getAnimal(animalId).getOwner());
     }
 
-    public int createAnimal(AnimalDto animal) {
+    public long createAnimal(AnimalDto animal) {
         // try to get the owner, if owner cannot be found an exception is thrown. This is handled through
         // the global controller exception handler.
-        ownerRepository.getOwner(animal.getOwnerId());
-        return data.createAnimal(Mapper.toAnimal(animal));
+        Owner owner = ownerRepository.getOwner(animal.getOwnerId());
+        Animal newAnimal = Mapper.toAnimal(animal);
+        newAnimal.setOwner(owner);
+        return data.createAnimal(newAnimal);
     }
 
-    public void updateAnimal(AnimalDto animal, int id) {
+    public void updateAnimal(AnimalDto animal, long id) {
         Animal cAnimal = Mapper.toAnimal(animal);
         cAnimal.setId(id);
         data.updateAnimal(cAnimal);
     }
 
-    public void deleteAnimal(int id) {
+    public void deleteAnimal(long id) {
         data.deleteAnimal(id);
     }
 
@@ -100,7 +103,7 @@ public class AnimalService {
                 .collect(Collectors.toList());
     }
 
-    private List<AnimalDto> getAnimalsByOwner(int id){
+    private List<AnimalDto> getAnimalsByOwner(long id){
         return data.getAnimals()
                 .stream()
                 .filter((index) -> index.getOwner().getId() == id)
