@@ -42,7 +42,7 @@ public class AnimalApiConfig implements WebMvcConfigurer {
         vendorAdapter.setGenerateDdl(true);
 
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setPackagesToScan("");
+        em.setPackagesToScan("com.brandon.animalapi.models");
         em.setDataSource(dataSource);
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());

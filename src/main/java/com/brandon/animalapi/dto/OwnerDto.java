@@ -12,8 +12,6 @@ public class OwnerDto {
     @NotBlank
     private String address;
 
-    private boolean hasKids;
-
     @Positive
     private int familySize;
 
@@ -35,14 +33,6 @@ public class OwnerDto {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public boolean isHasKids() {
-        return hasKids;
-    }
-
-    public void setHasKids(boolean hasKids) {
-        this.hasKids = hasKids;
     }
 
     public int getFamilySize() {

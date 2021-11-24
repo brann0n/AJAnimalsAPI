@@ -4,11 +4,19 @@ import com.brandon.animalapi.models.Animal;
 import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class OwnerRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * Local object to store all animals in.
@@ -30,8 +38,8 @@ public class OwnerRepository {
      * Function that adds a preset of objects to the database with the index kept intact
      */
     private void initRepository() {
-        createOwner(new Owner("John Doe", "small street 3944b, BigCity", 2));
-        createOwner(new Owner("Ben Al", "big street 24, SmallTown", 8));
+//        createOwner(new Owner("John Doe", "small street 3944b, BigCity", 2));
+//        createOwner(new Owner("Ben Al", "big street 24, SmallTown", 8));
     }
 
     /**
@@ -72,10 +80,12 @@ public class OwnerRepository {
     /**
      * Gets all owners
      *
-     * @return all Owners: {@code Collection<Owner>}
+     * @return all Owners: {@code List<Owner>}
      */
-    public Collection<Owner> getOwners() {
-        return owners.values();
+    public List<Owner> getOwners() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Owner> query = cb.createQuery(Owner.class);
+        return entityManager.createQuery(query.select(query.from(Owner.class))).getResultList();
     }
 
     /**
