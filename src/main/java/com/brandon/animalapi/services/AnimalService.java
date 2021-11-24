@@ -56,7 +56,7 @@ public class AnimalService {
     }
 
     public OwnerDto getAnimalOwner(int animalId) {
-        return Mapper.toOwnerDto(ownerRepository.getOwner(data.getAnimal(animalId).getOwnerId()));
+        return Mapper.toOwnerDto(data.getAnimal(animalId).getOwner());
     }
 
     public int createAnimal(AnimalDto animal) {
@@ -103,7 +103,7 @@ public class AnimalService {
     private List<AnimalDto> getAnimalsByOwner(int id){
         return data.getAnimals()
                 .stream()
-                .filter((index) -> index.getOwnerId() == id)
+                .filter((index) -> index.getOwner().getId() == id)
                 .map(Mapper::toAnimalDto)
                 .collect(Collectors.toList());
     }

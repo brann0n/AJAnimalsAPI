@@ -29,9 +29,9 @@ public class AnimalRepository {
      * Function that adds a preset of objects to the database with the index kept intact
      */
     private void initRepository() {
-        createAnimal(new Animal("Fluffy", "Dog", 4, 1));
-        createAnimal(new Animal("Boomer", "Dog", 2, 1));
-        createAnimal(new Animal("Mr. Biggles", "Cat", 7, 2));
+        createAnimal(new Animal("Fluffy", "Dog", 4));
+        createAnimal(new Animal("Boomer", "Dog", 2));
+        createAnimal(new Animal("Mr. Biggles", "Cat", 7));
     }
 
     /**

@@ -30,8 +30,8 @@ public class OwnerRepository {
      * Function that adds a preset of objects to the database with the index kept intact
      */
     private void initRepository() {
-        createOwner(new Owner("John Doe", "small street 3944b, BigCity", false, 2));
-        createOwner(new Owner("Ben Al", "big street 24, SmallTown", true, 8));
+        createOwner(new Owner("John Doe", "small street 3944b, BigCity", 2));
+        createOwner(new Owner("Ben Al", "big street 24, SmallTown", 8));
     }
 
     /**

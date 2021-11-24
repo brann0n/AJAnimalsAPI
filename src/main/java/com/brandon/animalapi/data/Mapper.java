@@ -13,26 +13,25 @@ public class Mapper {
         returnObject.setId(animal.getId());
         returnObject.setName(animal.getName());
         returnObject.setType(animal.getType());
-        returnObject.setOwnerId(animal.getOwnerId());
+        returnObject.setOwnerId(animal.getOwner().getId());
         return returnObject;
     }
 
     public static Animal toAnimal(AnimalDto animal) {
-        return new Animal(animal.getName(), animal.getType(), animal.getAge(), animal.getOwnerId());
+        return new Animal(animal.getName(), animal.getType(), animal.getAge());
     }
 
     public static OwnerDto toOwnerDto(Owner owner) {
         OwnerDto returnObject = new OwnerDto();
         returnObject.setName(owner.getName());
         returnObject.setAddress(owner.getAddress());
-        returnObject.setFamilySize(owner.getFamilySize());
-        returnObject.setHasKids(owner.isHasKids());
+        returnObject.setFamilySize(owner.getFamiliySize());
         returnObject.setId(owner.getId());
 
         return returnObject;
     }
 
     public static Owner toOwner(OwnerDto owner) {
-        return new Owner(owner.getName(), owner.getAddress(), owner.isHasKids(), owner.getFamilySize());
+        return new Owner(owner.getName(), owner.getAddress(), owner.getFamilySize());
     }
 }

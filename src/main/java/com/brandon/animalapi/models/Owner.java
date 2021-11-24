@@ -1,40 +1,40 @@
 package com.brandon.animalapi.models;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class Owner implements IDataModel {
+@Table(name = "owner")
+@Entity
+public class Owner {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    private int id;
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
-    private String address;
-    private boolean hasKids;
-    private int familySize;
 
-    public Owner(String name, String address, boolean hasKids, int familySize) {
+    @Column(name = "address", nullable = false, length = 100)
+    private String address;
+
+    @Column(name = "familiy_size", nullable = false)
+    private Integer familiySize;
+
+    public Owner(String name, String address, int familiySize){
         this.name = name;
         this.address = address;
-        this.hasKids = hasKids;
-        this.familySize = familySize;
+        this.familiySize = familiySize;
     }
 
-    public Owner() {
+    public Owner(){
 
     }
 
-    public int getId() {
-        return id;
+    public Integer getFamiliySize() {
+        return familiySize;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setFamiliySize(Integer familiySize) {
+        this.familiySize = familiySize;
     }
 
     public String getAddress() {
@@ -45,19 +45,19 @@ public class Owner implements IDataModel {
         this.address = address;
     }
 
-    public boolean isHasKids() {
-        return hasKids;
+    public String getName() {
+        return name;
     }
 
-    public void setHasKids(boolean hasKids) {
-        this.hasKids = hasKids;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getFamilySize() {
-        return familySize;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFamilySize(int familySize) {
-        this.familySize = familySize;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

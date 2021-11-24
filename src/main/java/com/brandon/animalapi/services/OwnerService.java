@@ -32,7 +32,7 @@ public class OwnerService {
     }
 
     public List<AnimalDto> getOwnerAnimals(int ownerId) {
-        return animalRepository.getAnimals().stream().filter((animal) -> animal.getOwnerId() == ownerId).map(Mapper::toAnimalDto).collect(Collectors.toList());
+        return animalRepository.getAnimals().stream().filter((animal) -> animal.getOwner().getId() == ownerId).map(Mapper::toAnimalDto).collect(Collectors.toList());
     }
 
     public int createOwner(OwnerDto owner) {
