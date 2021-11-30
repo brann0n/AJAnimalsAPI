@@ -1,5 +1,8 @@
 package com.brandon.animalapi.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Table(name = "animal")
@@ -8,20 +11,20 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    @Getter @Setter private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
-    private String name;
+    @Getter @Setter private String name;
 
     @Column(name = "type", nullable = false, length = 20)
-    private String type;
+    @Getter @Setter private String type;
 
     @Column(name = "age", nullable = false)
-    private Integer age;
+    @Getter @Setter private Integer age;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_id", nullable = false)
-    private Owner owner;
+    @Getter @Setter private Owner owner;
 
     public Animal(String name, String type, int age){
         this.name = name;
@@ -31,45 +34,5 @@ public class Animal {
 
     public Animal(){
 
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

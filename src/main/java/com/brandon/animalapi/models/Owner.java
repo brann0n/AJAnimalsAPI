@@ -1,5 +1,8 @@
 package com.brandon.animalapi.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +13,19 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    @Getter @Setter private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
-    private String name;
+    @Getter @Setter private String name;
 
     @Column(name = "address", nullable = false, length = 100)
-    private String address;
+    @Getter @Setter private String address;
 
     @Column(name = "familiy_size", nullable = false)
-    private Integer familiySize;
+    @Getter @Setter private Integer familiySize;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-    private List<Animal> animalList = new ArrayList<>(0);
+    @Getter @Setter private List<Animal> animalList = new ArrayList<>(0);
 
     public Owner(String name, String address, int familiySize){
         this.name = name;
@@ -34,43 +37,5 @@ public class Owner {
 
     }
 
-    public Integer getFamiliySize() {
-        return familiySize;
-    }
 
-    public void setFamiliySize(Integer familiySize) {
-        this.familiySize = familiySize;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Animal> getAnimalList() {
-        return animalList;
-    }
-
-    public void setAnimalList(List<Animal> animalList) {
-        this.animalList = animalList;
-    }
 }
