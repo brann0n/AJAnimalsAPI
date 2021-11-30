@@ -72,6 +72,7 @@ public class AnimalService {
     public void updateAnimal(AnimalDto animal, long id) {
         Animal cAnimal = Mapper.toAnimal(animal);
         cAnimal.setId(id);
+        cAnimal.setOwner(ownerRepository.getOwner(animal.getOwnerId()));
         data.updateAnimal(cAnimal);
     }
 

@@ -3,6 +3,7 @@ package com.brandon.animalapi.data;
 import com.brandon.animalapi.models.Animal;
 import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,13 +12,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Objects;
 
-@Component
+@Repository
+@Transactional
 public class AnimalRepository {
 
     @PersistenceContext(unitName = "ANIMALS")
     private EntityManager entityManager;
-
 
     /**
      * Creates an animal object
@@ -25,7 +27,6 @@ public class AnimalRepository {
      * @param animal the animal object to add to the datastorage
      * @return returns the Id of the created object
      */
-    @Transactional
     public long createAnimal(Animal animal) {
         entityManager.persist(animal);
 
@@ -37,12 +38,14 @@ public class AnimalRepository {
      *
      * @param animal id of the animal to update
      */
-    @Transactional
     public void updateAnimal(Animal animal) {
         Animal dbAnimal = entityManager.find(Animal.class, animal.getId());
         dbAnimal.setName(animal.getName());
         dbAnimal.setType(animal.getType());
         dbAnimal.setAge(animal.getAge());
+        if((long) dbAnimal.getOwner().getId() != animal.getOwner().getId()){
+            dbAnimal.setOwner(animal.getOwner());
+        }
     }
 
     /**
@@ -50,7 +53,6 @@ public class AnimalRepository {
      *
      * @param id id of the animal to delete
      */
-    @Transactional
     public void deleteAnimal(long id) {
         Animal dbAnimal = entityManager.find(Animal.class, id);
         entityManager.remove(dbAnimal);

@@ -3,6 +3,7 @@ package com.brandon.animalapi.data;
 import com.brandon.animalapi.models.Animal;
 import com.brandon.animalapi.models.Owner;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+@Repository
+@Transactional
 public class OwnerRepository {
 
     @PersistenceContext(unitName = "ANIMALS")
@@ -25,7 +27,6 @@ public class OwnerRepository {
      * @param owner
      * @return
      */
-    @Transactional
     public Long createOwner(Owner owner) {
         entityManager.persist(owner);
         return owner.getId();
@@ -37,7 +38,6 @@ public class OwnerRepository {
      * @param owner
      * @return success
      */
-    @Transactional
     public void updateOwner(Owner owner) {
         Owner dbOwner = entityManager.find(Owner.class, owner.getId());
         dbOwner.setAddress(owner.getAddress());
@@ -51,7 +51,6 @@ public class OwnerRepository {
      * @param id
      * @return success
      */
-    @Transactional
     public void removeOwner(long id) {
         Owner dbOwner = entityManager.find(Owner.class, id);
         entityManager.remove(dbOwner);
