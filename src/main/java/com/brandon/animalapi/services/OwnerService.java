@@ -31,8 +31,8 @@ public class OwnerService {
         return Mapper.toOwnerDto(data.getOwner(id));
     }
 
-    public List<AnimalDto> getOwnerAnimals(int ownerId) {
-        return animalRepository.getAnimals().stream().filter((animal) -> animal.getOwner().getId() == ownerId).map(Mapper::toAnimalDto).collect(Collectors.toList());
+    public List<AnimalDto> getOwnerAnimals(long ownerId) {
+        return data.getOwner(ownerId).getAnimalList().stream().map(Mapper::toAnimalDto).collect(Collectors.toList());
     }
 
     public Long createOwner(OwnerDto owner) {

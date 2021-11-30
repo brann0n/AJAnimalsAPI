@@ -1,6 +1,8 @@
 package com.brandon.animalapi.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "owner")
 @Entity
@@ -18,6 +20,9 @@ public class Owner {
 
     @Column(name = "familiy_size", nullable = false)
     private Integer familiySize;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Animal> animalList = new ArrayList<>(0);
 
     public Owner(String name, String address, int familiySize){
         this.name = name;
@@ -59,5 +64,13 @@ public class Owner {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Animal> getAnimalList() {
+        return animalList;
+    }
+
+    public void setAnimalList(List<Animal> animalList) {
+        this.animalList = animalList;
     }
 }
