@@ -1,8 +1,11 @@
 package com.brandon.animalapi;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,7 +27,21 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.brandon.animalapi")
+@PropertySource("classpath:application.properties")
 public class AnimalApiConfig implements WebMvcConfigurer {
+
+    @Value("${database.url}")
+    private String dbUrl;
+
+    @Value("${database.user}")
+    private String dbUser;
+
+    @Value("${database.pass}")
+    private String dbPassword;
+
+    @Value("${database.driver}")
+    private String dbDriver;
+
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -34,10 +51,10 @@ public class AnimalApiConfig implements WebMvcConfigurer {
     @Bean
     public DataSource datasource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/animalapi");
-        ds.setUsername("root");
-        ds.setPassword("");
+        ds.setDriverClassName(dbDriver);
+        ds.setUrl(dbUrl);
+        ds.setUsername(dbUser);
+        ds.setPassword(dbPassword);
         return ds;
     }
 
@@ -48,7 +65,7 @@ public class AnimalApiConfig implements WebMvcConfigurer {
         vendorAdapter.setGenerateDdl(true);
 
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setPackagesToScan("com.brandon.animalapi");
+        em.setPackagesToScan("com.brandon.animalapi.models");
         em.setDataSource(dataSource);
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());

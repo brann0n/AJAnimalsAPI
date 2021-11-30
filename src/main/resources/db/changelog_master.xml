@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1638276062921-1" author="Brandon">
+        <createTable tableName="owner">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_owner"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="familiy_size" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="animal">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_animal"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="animal" constraintName="FK_ANIMAL_ON_OWNER" referencedColumnNames="id" referencedTableName="owner"/>
+    </changeSet>
+    <changeSet id="1638277159943-1" author="Brandon">
+
+
+        <insert tableName="owner">
+            <column name="id" value="1"/>
+            <column name="name" value="Mark"/>
+            <column name="address" value="Mark straat 1"/>
+            <column name="familiy_size" value="69"/>
+        </insert>
+
+        <insert tableName="animal">
+            <column name="id" value="1"/>
+            <column name="name" value="Stairs"/>
+            <column name="type" value="GrootHuis"/>
+            <column name="age" value="3"/>
+            <column name="owner_id" value="1"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

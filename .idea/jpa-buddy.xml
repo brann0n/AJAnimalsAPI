@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JpaBuddyIdeaProjectConfig">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="mysql">
+    <option name="liquibaseDirectory" value="db" />
+    <option name="sourceDiffType" value="DB" />
     <option name="defaultUnitInitialized" value="true" />
+    <option name="sourceDbValue" value="8980f682-0b49-4dd9-a19d-8f937c55bf5a" />
+    <option name="sourceModelValue" value="Default" />
+    <option name="targetDbValue" value="8980f682-0b49-4dd9-a19d-8f937c55bf5a" />
+    <option name="updateChangeLogPath" value="src/main/resources/db/changelog_master.xml" />
+    <option name="updateDbConnectionName" value="8980f682-0b49-4dd9-a19d-8f937c55bf5a" />
+    <option name="updateLogLevel" value="OFF" />
     <option name="reverseEngineeringLastDbConnectionId" value="8980f682-0b49-4dd9-a19d-8f937c55bf5a" />
     <option name="reLastEntityCreationPackage" value="src/main/java/com/brandon/animalapi/models" />
   </component>
