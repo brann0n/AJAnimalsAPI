@@ -26,20 +26,20 @@ public class AnimalRepositoryTest {
     private EntityManager entityManager;
 
     @Test
-    public void testGetAllAnimals() {
+    public void getAnimals() {
         Collection<Animal> animals = animalRepository.getAnimals();
         assertThat(animals).isNotEmpty();
     }
 
     @Test
-    public void testGetAnimal() {
+    public void getAnimal() {
         Animal animal = animalRepository.getAnimal(1);
         assertThat(animal).isNotNull();
-        assertThat(animal.getOwner().getName()).isEqualTo("Hans");
+        assertThat(animal.getOwner()).isNotNull();
     }
 
     @Test
-    public void testCreateAnimal() {
+    public void createAnimal() {
         Animal animal = new Animal("Bas", "waakhond", 400);
         animal.setOwner(entityManager.getReference(Owner.class, 1L));
         long id = animalRepository.createAnimal(animal);
@@ -47,7 +47,7 @@ public class AnimalRepositoryTest {
     }
 
     @Test
-    public void testUpdateAnimal() {
+    public void updateAnimal() {
         //get the object that we will be changing
         Animal animal = animalRepository.getAnimal(1);
         animal.setName("Trap"); //stairs -> trap
@@ -69,7 +69,7 @@ public class AnimalRepositoryTest {
     }
 
     @Test
-    public void testUpdateAnimalOwner(){
+    public void updateAnimalOwner() {
         Animal animal = animalRepository.getAnimal(1);
 
         Animal animal2 = entityManager.find(Animal.class, 1L);
@@ -84,7 +84,7 @@ public class AnimalRepositoryTest {
     }
 
     @Test
-    public void testDeleteAnimal(){
+    public void deleteAnimal() {
         animalRepository.deleteAnimal(2L);
         assertThat(entityManager.find(Animal.class, 2L)).isNull();
     }

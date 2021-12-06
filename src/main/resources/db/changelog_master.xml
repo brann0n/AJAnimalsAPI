@@ -38,7 +38,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="animal" constraintName="FK_ANIMAL_ON_OWNER" referencedColumnNames="id" referencedTableName="owner"/>
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="animal" constraintName="FK_ANIMAL_ON_OWNER" referencedColumnNames="id" referencedTableName="owner" onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="1638277159943-1" author="Brandon">
         <insert tableName="owner">
@@ -55,12 +55,19 @@
             <column name="familiy_size" value="69"/>
         </insert>
 
+        <insert tableName="owner">
+            <column name="id" value="3"/>
+            <column name="name" value="Stan"/>
+            <column name="address" value="Geen straat 5"/>
+            <column name="familiy_size" value="2"/>
+        </insert>
+
         <insert tableName="animal">
             <column name="id" value="1"/>
             <column name="name" value="Stairs"/>
             <column name="type" value="GrootHuis"/>
             <column name="age" value="3"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="2"/>
         </insert>
 
         <insert tableName="animal">

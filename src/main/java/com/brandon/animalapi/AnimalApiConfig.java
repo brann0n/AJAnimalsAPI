@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Objects;
 import java.util.Properties;
 
 @EnableWebMvc
@@ -49,12 +51,12 @@ public class AnimalApiConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource datasource() {
+    public DataSource datasource(Environment env) {
         DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(dbDriver);
-        ds.setUrl(dbUrl);
-        ds.setUsername(dbUser);
-        ds.setPassword(dbPassword);
+        ds.setDriverClassName(Objects.requireNonNull(env.getProperty("database.driver")));
+        ds.setUrl(env.getProperty("database.url"));
+        ds.setUsername(env.getProperty("database.user"));
+        ds.setPassword(env.getProperty("database.pass"));
         return ds;
     }
 
