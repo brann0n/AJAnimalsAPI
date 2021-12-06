@@ -1,6 +1,7 @@
 package com.brandon.animalapi.controllers;
 
 import com.brandon.animalapi.AnimalApiConfig;
+import com.brandon.animalapi.TestApplicationContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-//@SpringJUnitWebConfig(classes = AnimalApiConfig.class)
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { AnimalApiConfig.class })
-@WebAppConfiguration(value = "classpath:")
+@SpringJUnitWebConfig(classes = TestApplicationContext.class)
 public class OwnerControllerTest {
 
     @Autowired
