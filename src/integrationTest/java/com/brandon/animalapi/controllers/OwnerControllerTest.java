@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringJUnitWebConfig(classes = TestApplicationContext.class)
@@ -50,5 +51,14 @@ public class OwnerControllerTest {
                 .isEqualTo(new Object[]{200, "application/json"});
 
         assertThat(resultResponse.getContentAsString()).isEqualTo("{\"id\":1,\"name\":\"Hans\",\"address\":\"Shell Corp 3\",\"familySize\":1}");
+    }
+
+    @Test
+    public void deleteOwner() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(delete("/owners/2")).andReturn();
+        MockHttpServletResponse resultResponse = mvcResult.getResponse();
+        assertThat(resultResponse)
+                .extracting(MockHttpServletResponse::getStatus)
+                .isEqualTo(new Object[]{204});
     }
 }

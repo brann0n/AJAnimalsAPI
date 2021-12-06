@@ -57,6 +57,13 @@
 
         <insert tableName="owner">
             <column name="id" value="3"/>
+            <column name="name" value="Mark2"/>
+            <column name="address" value="Mark straat 12"/>
+            <column name="familiy_size" value="69"/>
+        </insert>
+
+        <insert tableName="owner">
+            <column name="id" value="4"/>
             <column name="name" value="Stan"/>
             <column name="address" value="Geen straat 5"/>
             <column name="familiy_size" value="2"/>
@@ -76,6 +83,22 @@
             <column name="type" value="Minister"/>
             <column name="age" value="590"/>
             <column name="owner_id" value="2"/>
+        </insert>
+
+        <insert tableName="animal">
+            <column name="id" value="3"/>
+            <column name="name" value="Stairs"/>
+            <column name="type" value="GrootHuis"/>
+            <column name="age" value="3"/>
+            <column name="owner_id" value="2"/>
+        </insert>
+
+        <insert tableName="animal">
+            <column name="id" value="4"/>
+            <column name="name" value="Kees van der Spek2"/>
+            <column name="type" value="Minister2"/>
+            <column name="age" value="590"/>
+            <column name="owner_id" value="4"/>
         </insert>
     </changeSet>
 
