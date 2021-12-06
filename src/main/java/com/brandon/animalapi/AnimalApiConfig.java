@@ -32,19 +32,6 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 public class AnimalApiConfig implements WebMvcConfigurer {
 
-    @Value("${database.url}")
-    private String dbUrl;
-
-    @Value("${database.user}")
-    private String dbUser;
-
-    @Value("${database.pass}")
-    private String dbPassword;
-
-    @Value("${database.driver}")
-    private String dbDriver;
-
-
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
