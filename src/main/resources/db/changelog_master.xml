@@ -41,10 +41,15 @@
         <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="animal" constraintName="FK_ANIMAL_ON_OWNER" referencedColumnNames="id" referencedTableName="owner"/>
     </changeSet>
     <changeSet id="1638277159943-1" author="Brandon">
-
-
         <insert tableName="owner">
             <column name="id" value="1"/>
+            <column name="name" value="Hans"/>
+            <column name="address" value="Shell Corp 3"/>
+            <column name="familiy_size" value="1"/>
+        </insert>
+
+        <insert tableName="owner">
+            <column name="id" value="2"/>
             <column name="name" value="Mark"/>
             <column name="address" value="Mark straat 1"/>
             <column name="familiy_size" value="69"/>
@@ -56,6 +61,14 @@
             <column name="type" value="GrootHuis"/>
             <column name="age" value="3"/>
             <column name="owner_id" value="1"/>
+        </insert>
+
+        <insert tableName="animal">
+            <column name="id" value="2"/>
+            <column name="name" value="Kees van der Spek"/>
+            <column name="type" value="Minister"/>
+            <column name="age" value="590"/>
+            <column name="owner_id" value="2"/>
         </insert>
     </changeSet>
 
