@@ -40,10 +40,10 @@ public class AnimalControllerTest {
 
     @Test
     public void getAnimal() throws Exception {
-        mockMvc.perform(get("/animals/2"))
+        mockMvc.perform(get("/animals/4"))
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type", "application/json"))
-                .andExpect(jsonPath("$.id").value(3))
+                .andExpect(jsonPath("$.id").value(4))
                 .andReturn();
     }
 
@@ -68,6 +68,7 @@ public class AnimalControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
                 .andReturn();
-
     }
+
+    //todo: put
 }

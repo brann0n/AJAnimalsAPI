@@ -74,7 +74,7 @@
             <column name="name" value="Stairs"/>
             <column name="type" value="GrootHuis"/>
             <column name="age" value="3"/>
-            <column name="owner_id" value="2"/>
+            <column name="owner_id" value="1"/>
         </insert>
 
         <insert tableName="animal">
@@ -90,7 +90,7 @@
             <column name="name" value="Stairs"/>
             <column name="type" value="GrootHuis"/>
             <column name="age" value="3"/>
-            <column name="owner_id" value="2"/>
+            <column name="owner_id" value="3"/>
         </insert>
 
         <insert tableName="animal">
